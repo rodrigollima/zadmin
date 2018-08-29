@@ -23,3 +23,7 @@ For all request you need an Auth token instance
    d = domain.create(hostname='newhost.tld')
 ```
 
+## Feature List
+* `Domain`
+  * creation
+
