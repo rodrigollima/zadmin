@@ -4,7 +4,7 @@ A simple Python library to provide access to a complex Zimbra Soap interface.
 ## Installation
 `pip install git+https://github.com/rodrigollima/zadmin.git`
 
-## Basics
+### Basics
 For all request you need an Auth token instance
 ```python
    from zadmin.auth import Auth
@@ -23,7 +23,7 @@ For all request you need an Auth token instance
    d = domain.create(hostname='newhost.tld')
 ```
 
-## Feature List
+### Feature List
 * `Domain`
   * creation
 
