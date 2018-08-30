@@ -14,6 +14,7 @@ class Auth():
         try:
             xml = AuthRequest.authenticate % (self.username, self.password)
             r = Request.post(self.webservice, xml=xml.strip())
+            
             return ET.fromstring(r.content).find('.//{urn:zimbraAdmin}authToken').text
         except Exception as e:
             print('err', e)

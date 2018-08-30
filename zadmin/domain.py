@@ -11,16 +11,26 @@ class Domain():
         self.auth = auth
 
     def create(self, hostname=''):
+
         try:
             xml = DomainRequest.create_domain_request % (self.auth.token, self.auth.username, hostname)
-            
             r = Request.post(self.auth.webservice, xml=xml.strip())
-            response = xmltodict.parse(r.text)
 
             if r.status_code == 200:
-                return {'success' : True, 'response' : response}
+                e = ET.fromstring(r.content).find('.//{urn:zimbraAdmin}domain')
+
+                return {'success' : True, 'response' : {
+                    'domain' : e.attrib['name'],
+                    'id' : e.attrib['id']
+                }}
             
-            return {'success' : False, 'response' : response}
+            e = ET.fromstring(r.content).find('.//{urn:zimbra}Code').text
+            return {'success' : False, 'response' : {
+                'code' : e
+            }}
+
         except Exception as e:
-            print(e)
+            return {'success' : False, 'response' : {
+                'code' : e.message
+            }}
 
