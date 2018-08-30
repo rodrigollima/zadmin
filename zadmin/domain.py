@@ -10,6 +10,9 @@ class Domain():
     def __init__(self, auth=''):
         self.auth = auth
 
+    '''
+    
+    '''
     def create(self, hostname=''):
 
         try:
