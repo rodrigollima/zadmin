@@ -30,7 +30,7 @@ For all request you need an Auth token instance
    
    auth = Auth('https://zimbrahost.tld:7071/service/admin/soap', 'admin@zimbrahost.tld', 'secretpassword')
    account = Account(auth)
-   a = account.create(account='testeprov@inova.net', password='fdas@#F555AFSD',zimbraCosId='8e97e282-8aa0-4ac4-96fb-7e2e7620c0a4')
+   a = account.create(account='account@domain.tld', password='fdas@#F555AFSD',zimbraCosId='8e97e282-8aa0-4ac4-96fb-7e2e7620c0a4')
 ```
 
 ### List COS
