@@ -1,26 +1,26 @@
 import xml.etree.ElementTree as ET
-#import xmltodict 
 
-from zadmin.soap.cos import CosRequest
+from zadmin.soap.account import AccountRequest
 from zadmin.request import Request
 from zadmin.auth import Auth
 
-class Cos():
+class Account():
     
     def __init__(self, auth=''):
         self.auth = auth
 
-    def list(self):
-        try:
-            xml = CosRequest.list_cos_request % (self.auth.token, self.auth.username)
-            r = Request.post(self.auth.webservice, xml=xml.strip())
+    def create(self, account, password='pwdPWD@@PWDpwd', zimbraCosId=''):
 
+        try:
+            xml = AccountRequest.create_account_request % (self.auth.token, self.auth.username, account, password, zimbraCosId)
+            r = Request.post(self.auth.webservice, xml=xml.strip())
+            
             if r.status_code == 200:
-                e = ET.fromstring(r.content).findall('.//{urn:zimbraAdmin}cos')
-                l_cos = [ {'label':x.attrib['name'], 'id':x.attrib['id']} for x in e]
+                e = ET.fromstring(r.content).find('.//{urn:zimbraAdmin}account')
 
                 return {'success' : True, 'response' : {
-                    'cos' : l_cos
+                    'account' : e.attrib['name'],
+                    'id' : e.attrib['id']
                 }}
             
             e = ET.fromstring(r.content).find('.//{urn:zimbra}Code').text
@@ -33,4 +33,3 @@ class Cos():
                 'code' : e.message
             }}
 
-    
