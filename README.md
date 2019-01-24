@@ -22,8 +22,19 @@ For all request you need an Auth token instance
    domain = Domain(auth)
    d = domain.create(hostname='newhost.tld')
 ```
+### List COS
+```python
+   from zadmin.auth import Auth
+   from zadmin.cos import Cos
+   
+   auth = Auth('https://zimbrahost.tld:7071/service/admin/soap', 'admin@zimbrahost.tld', 'secretpassword')
+   cos = Cos(auth)
+   c = cos.list()
+```
 
 ### Feature List
 * `Domain`
   * creation
+* `COS`
+  * list
 
