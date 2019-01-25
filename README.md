@@ -13,14 +13,19 @@ For all request you need an Auth token instance
    auth.token
 ```
 
-### Domain creation
+### Domain
 ```python
    from zadmin.auth import Auth
    from zadmin.domain import Domain
    
+   ## Create
    auth = Auth('https://zimbrahost.tld:7071/service/admin/soap', 'admin@zimbrahost.tld', 'secretpassword')
    domain = Domain(auth)
    d = domain.create(hostname='newhost.tld')
+
+   ## Get account quantity by Class of Service
+   domain = Domain(auth)
+   q = domain.count_accounts_by_class_of_service('newhost.tld')
 ```
 
 ### Accoun creation

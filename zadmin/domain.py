@@ -1,5 +1,4 @@
 import xml.etree.ElementTree as ET
-import xmltodict 
 
 from zadmin.soap.domain import DomainRequest
 from zadmin.request import Request
@@ -37,3 +36,32 @@ class Domain():
                 'code' : e.message
             }}
 
+    def count_accounts_by_class_of_service(self, hostname):
+            """
+            Count all accounts by Zimbra Class of Service
+            """
+            try:
+                xml = DomainRequest.count_accounts_by_class_of_service % (self.auth.token, self.auth.username, hostname)
+                print(xml)
+                r = Request.post(self.auth.webservice, xml=xml.strip())
+
+                if r.status_code == 200:
+                    
+                    print(r.content)
+                    
+                    e = ET.fromstring(r.content).findall('.//{urn:zimbraAdmin}cos')
+                    l_cos = [ {'label':x.attrib['name'], 'id':x.attrib['id'], 'quantity':x.text} for x in e]
+
+                    return {'success' : True, 'response' : {
+                        'cos' : l_cos
+                    }}
+                
+                e = ET.fromstring(r.content).find('.//{urn:zimbra}Code').text
+                return {'success' : False, 'response' : {
+                    'code' : e
+                }}
+
+            except Exception as e:
+                return {'success' : False, 'response' : {
+                    'code' : e.message
+                }}
