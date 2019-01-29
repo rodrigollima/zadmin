@@ -63,7 +63,6 @@ class Domain():
             """
             try:
                 xml = DomainRequest.count_accounts_by_class_of_service % (self.auth.token, self.auth.username, hostname)
-                print(xml)
                 r = Request.post(self.auth.webservice, xml=xml.strip())
 
                 if r.status_code == 200:
