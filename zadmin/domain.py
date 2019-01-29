@@ -9,9 +9,30 @@ class Domain():
     def __init__(self, auth=''):
         self.auth = auth
 
-    '''
-    
-    '''
+    def list(self):
+        try:
+            xml = DomainRequest.list_domain_request % (self.auth.token, self.auth.username)
+            r = Request.post(self.auth.webservice, xml=xml.strip())
+            
+            if r.status_code == 200:
+                e = ET.fromstring(r.content).findall('.//{urn:zimbraAdmin}domain')
+                l_cos = [ {'name':x.attrib['name'], 'id':x.attrib['id']} for x in e]
+
+                return {'success' : True, 'response' : {
+                    'domains' : l_cos
+                }}
+            
+            e = ET.fromstring(r.content).find('.//{urn:zimbra}Code').text
+            return {'success' : False, 'response' : {
+                'code' : e
+            }}
+
+        except Exception as e:
+            return {'success' : False, 'response' : {
+                'code' : e.message
+            }}
+
+
     def create(self, hostname=''):
 
         try:

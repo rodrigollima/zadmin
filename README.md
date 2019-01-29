@@ -23,6 +23,11 @@ For all request you need an Auth token instance
    domain = Domain(auth)
    d = domain.create(hostname='newhost.tld')
 
+   ## List all
+   auth = Auth('https://zimbrahost.tld:7071/service/admin/soap', 'admin@zimbrahost.tld', 'secretpassword')
+   domain = Domain(auth)
+   d = domain.list()
+
    ## Get account quantity by Class of Service
    domain = Domain(auth)
    q = domain.count_accounts_by_class_of_service('newhost.tld')
@@ -51,6 +56,7 @@ For all request you need an Auth token instance
 ### Feature List
 * `Domain`
   * creation
+  * list
 * `Account`
   * creation
 * `COS`
