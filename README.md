@@ -38,9 +38,16 @@ For all request you need an Auth token instance
    from zadmin.auth import Auth
    from zadmin.account import Account
    
+   ## Create account
    auth = Auth('https://zimbrahost.tld:7071/service/admin/soap', 'admin@zimbrahost.tld', 'secretpassword')
    account = Account(auth)
    a = account.create(account='account@domain.tld', password='fdas@#F555AFSD',zimbraCosId='8e97e282-8aa0-4ac4-96fb-7e2e7620c0a4')
+
+   ## Rename account
+   auth = Auth('https://zimbrahost.tld:7071/service/admin/soap', 'admin@zimbrahost.tld', 'secretpassword')
+   account = Account(auth)
+   a = account.rename(id='bcd33ca4-ab26-48cd-ba0e-a6f68011b4bc', account='newname@domain.tld')
+
 ```
 
 ### List COS
@@ -59,6 +66,7 @@ For all request you need an Auth token instance
   * list
 * `Account`
   * creation
+  * rename
 * `COS`
   * list
 
