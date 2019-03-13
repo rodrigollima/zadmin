@@ -1,6 +1,0 @@
-from zadmin.backup import BackupQuery
-from zadmin.auth import Auth
-
-auth = Auth('https://webmail.inova.com.br:7071/service/admin/soap', 'rodrigo.lima@inova.net', 'Rdg@2017')
-backup = BackupQuery(auth)
-backup.get(account='rodrigo.lima@inova.net')
