@@ -60,6 +60,16 @@ For all request you need an Auth token instance
    c = cos.list()
 ```
 
+### Get Backup Query
+```python
+   from zadmin.auth import Auth
+   from zadmin.backup import BackupQuery
+   
+   auth = Auth('https://zimbrahost.tld:7071/service/admin/soap', 'admin@zimbrahost.tld', 'secretpassword')
+   backup = BackupQuery(auth)
+   b = backup.get(account='account@zimbrahost.tld')
+```
+
 ### Feature List
 * `Domain`
   * creation
@@ -69,4 +79,6 @@ For all request you need an Auth token instance
   * rename
 * `COS`
   * list
+* `BackupQuery`
+  * get
 
