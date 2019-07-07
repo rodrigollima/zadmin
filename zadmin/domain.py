@@ -9,6 +9,21 @@ class Domain():
     def __init__(self, auth=''):
         self.auth = auth
 
+    def get(self, hostname):
+        try:
+            xml = DomainRequest.get_domain_info_request % (self.auth.token, self.auth.username, hostname)
+            r = Request.post(self.auth.webservice, xml=xml.strip())
+            if r.status_code == 200:
+                e = ET.fromstring(r.content).find('.//{urn:zimbraAdmin}domain')
+                return {'success' : True, 'response' : {
+                    'domain' : e.attrib['name'],
+                    'id' : e.attrib['id']
+                }}
+        except Exception as e:
+            return {'success' : False, 'response' : {
+                'code' : e
+            }}
+
     def list(self):
         try:
             xml = DomainRequest.list_domain_request % (self.auth.token, self.auth.username)

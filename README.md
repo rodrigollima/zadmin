@@ -23,6 +23,10 @@ For all request you need an Auth token instance
    domain = Domain(auth)
    d = domain.create(hostname='newhost.tld')
 
+   ## Get domain id
+   domain = Domain(auth)
+   d = domain.create(hostname='newhost.tld') 
+
    ## List all
    auth = Auth('https://zimbrahost.tld:7071/service/admin/soap', 'admin@zimbrahost.tld', 'secretpassword')
    domain = Domain(auth)
