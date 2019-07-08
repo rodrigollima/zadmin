@@ -9,6 +9,38 @@ class Account():
     def __init__(self, auth=''):
         self.auth = auth
 
+    def get_all_accounts(self, hostname):
+        try:
+            xml = AccountRequest.get_all_accounts_request % (self.auth.token, self.auth.username, hostname)
+            r = Request.post(self.auth.webservice, xml=xml.strip()) 
+        
+            if r.status_code == 200:
+                e = ET.fromstring(r.content).findall('.//{urn:zimbraAdmin}account')        
+
+                acc = []
+                for x in e:
+                    cos = None
+                    for i in x.getchildren():
+                        if i.attrib['n'] == 'zimbraCOSId':
+                            cos = i.text
+                    
+                    acc.append({'name':x.attrib['name'], 'id':x.attrib['id'], 'cos': cos})
+                
+                return {'success' : True, 'response' : {
+                    'accounts' : acc
+                }}            
+            
+
+            e = ET.fromstring(r.content).find('.//{urn:zimbra}Code').text
+            return {'success' : False, 'response' : {
+                'code' : e
+            }}
+
+        except Exception as e:
+            return {'success' : False, 'response' : {
+                'code' : e.message
+            }}
+
     def get(self, account):
 
         try:

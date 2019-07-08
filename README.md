@@ -25,7 +25,7 @@ For all request you need an Auth token instance
 
    ## Get domain id
    domain = Domain(auth)
-   d = domain.create(hostname='newhost.tld') 
+   d = domain.get(hostname='newhost.tld') 
 
    ## List all
    auth = Auth('https://zimbrahost.tld:7071/service/admin/soap', 'admin@zimbrahost.tld', 'secretpassword')
@@ -41,7 +41,12 @@ For all request you need an Auth token instance
 ```python
    from zadmin.auth import Auth
    from zadmin.account import Account
-   
+
+   ## Get All accounts by domain hostname
+   auth = Auth('https://zimbrahost.tld:7071/service/admin/soap', 'admin@zimbrahost.tld', 'secretpassword')
+   account = Account(auth)
+   a = account.get_all_accounts(hostname='zimbrahost.tld')
+
    ## Create account
    auth = Auth('https://zimbrahost.tld:7071/service/admin/soap', 'admin@zimbrahost.tld', 'secretpassword')
    account = Account(auth)
