@@ -96,6 +96,31 @@ class Account():
                 'code' : e.message
             }}
 
+    def update(self, account, password=None, zimbraCosId=None):
+
+        try:
+            xml = AccountRequest.update_account_request % (self.auth.token, self.auth.username, account, password, zimbraCosId)
+            r = Request.post(self.auth.webservice, xml=xml.strip())
+            
+            if r.status_code == 200:
+                e = ET.fromstring(r.content).find('.//{urn:zimbraAdmin}account')
+
+                return {'success' : True, 'response' : {
+                    'account' : e.attrib['name'],
+                    'id' : e.attrib['id']
+                }}
+            
+            e = ET.fromstring(r.content).find('.//{urn:zimbra}Code').text
+            return {'success' : False, 'response' : {
+                'code' : e
+            }}
+
+        except Exception as e:
+            return {'success' : False, 'response' : {
+                'code' : e.message
+            }}
+
+
     def rename(self, id, account):
 
         try:
