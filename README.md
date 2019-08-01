@@ -37,7 +37,7 @@ For all request you need an Auth token instance
    q = domain.count_accounts_by_class_of_service('newhost.tld')
 ```
 
-### Accoun creation
+### Account
 ```python
    from zadmin.auth import Auth
    from zadmin.account import Account
