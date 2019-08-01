@@ -96,10 +96,10 @@ class Account():
                 'code' : e.message
             }}
 
-    def update(self, account, password=None, zimbraCosId=None):
+    def update(self, zimbraId, zimbraCosId=None):
 
         try:
-            xml = AccountRequest.update_account_request % (self.auth.token, self.auth.username, account, password, zimbraCosId)
+            xml = AccountRequest.update_account_request % (self.auth.token, self.auth.username, zimbraId, zimbraCosId)
             r = Request.post(self.auth.webservice, xml=xml.strip())
             
             if r.status_code == 200:
@@ -119,7 +119,6 @@ class Account():
             return {'success' : False, 'response' : {
                 'code' : e.message
             }}
-
 
     def rename(self, id, account):
 

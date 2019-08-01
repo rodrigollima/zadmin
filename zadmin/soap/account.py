@@ -68,7 +68,7 @@ class AccountRequest:
                 </context>
             </soap:Header>
             <soap:Body>
-                <ModifyAccountRequest id="{value-of-zimbra-id}" xmlns="urn:zimbraAdmin">
+                <ModifyAccountRequest id="%s" xmlns="urn:zimbraAdmin">
                     <a n="zimbraCosId">%s</a>
                 </ModifyAccountRequest>
             </soap:Body>

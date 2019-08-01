@@ -57,6 +57,11 @@ For all request you need an Auth token instance
    account = Account(auth)
    a = account.rename(id='bcd33ca4-ab26-48cd-ba0e-a6f68011b4bc', account='newname@domain.tld')
 
+   ## Update account
+   auth = Auth('https://zimbrahost.tld:7071/service/admin/soap', 'admin@zimbrahost.tld', 'secretpassword')
+   account = Account(auth)
+   a = account.update(id='bcd33ca4-ab26-48cd-ba0e-a6f68011b4bc', zimbraCosId='8e97e282-8aa0-4ac4-96fb-7e2e7620c0a4')
+
 ```
 
 ### List COS
